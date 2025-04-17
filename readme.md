@@ -6,11 +6,11 @@ LibreTV是一个轻量级、免费的在线视频搜索与观看平台，提供�
 
 本项目基于 https://github.com/bestK/tv
 
-演示站：https://libretv.is-an.org/
+演示站：(请自行部署，不再提供演示站)
 
 <img src="https://testingcf.jsdelivr.net/gh/bestZwei/imgs@master/picgo/image-20250406231222216.png" alt="image-20250406231222216" style="zoom:67%;" />
 
-> ##### **感谢 [NodeSupport](https://www.nodeseek.com/post-305185-1) 友情赞助**
+**感谢 [NodeSupport](https://www.nodeseek.com/post-305185-1) 友情赞助**
 
 ## ✨ 主要特性
 
@@ -22,25 +22,31 @@ LibreTV是一个轻量级、免费的在线视频搜索与观看平台，提供�
 - 🚀 纯静态部署，无需后端服务器
 - 🛡️ 内置广告过滤功能，提供更干净的观影体验
 - 🎬 自定义视频播放器，支持HLS流媒体格式
+- ⌨️ 键盘快捷键支持，提高观影体验
 
-## 🎮 播放器功能
+## ⌨️ 键盘快捷键
 
-LibreTV集成了强大的自定义播放器，具有以下特点：
+LibreTV播放器支持以下键盘快捷键：
 
-- **智能广告过滤**：自动识别并过滤M3U8流中的广告片段
-- **多格式支持**：基于HLS.js和DPlayer，支持各类流媒体格式
-- **自适应质量**：根据网络条件自动调整播放质量
-- **热键控制**：支持键盘快捷键控制播放
-- **错误恢复**：智能处理播放错误，提供友好的错误提示
+- **Alt + 左箭头**：播放上一集
+- **Alt + 右箭头**：播放下一集
+- **空格键**：暂停/播放
+- **左/右箭头**：快退/快进5秒
+- **上/下箭头**：调整音量
+- **F**：全屏/退出全屏
 
-### 广告过滤技术
+### CMS采集站源兼容性
 
-播放器使用自定义HLS加载器实现广告过滤：
+本项目支持标准的苹果CMS V10 API格式。自定义API需遵循以下格式：
+- 搜索接口: `https://example.com/api.php/provide/vod/?ac=videolist&wd=关键词`
+- 详情接口: `https://example.com/api.php/provide/vod/?ac=detail&ids=视频ID`
 
-- 识别广告标记（如`#EXT-X-DISCONTINUITY`、`#EXT-X-CUE-OUT`等）
-- 检测短时长片段（通常为广告）
-- 对M3U8清单文件进行实时处理
-- 支持严格和宽松两种过滤模式
+**重要提示**: 像 `https://360zy.com/api.php/provide/vod` 这样的CMS源需要按照以下格式添加：
+1. 在设置面板中选择"自定义接口"
+2. 接口地址只填写到域名部分: `https://360zy.com`（不要包含`/api.php/provide/vod`部分）
+3. 项目会自动补全正确的路径格式
+
+如果CMS接口非标准格式，可能需要修改项目中的`config.js`文件中的`API_CONFIG.search.path`和`API_CONFIG.detail.path`配置。
 
 ## 🛠️ 技术栈
 
@@ -50,6 +56,10 @@ LibreTV集成了强大的自定义播放器，具有以下特点：
 - DPlayer 视频播放器核心
 - 前端API请求拦截技术
 - localStorage本地存储
+
+## 🚀 一键部署
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FLibreSpark%2FLibreTV)
 
 ## 🚀 部署指南
 
@@ -82,12 +92,6 @@ npx http-server -p 8080
 
 ### Docker 部署
 
-本项目已配置 GitHub Actions 自动构建并推送 Docker 镜像至 Docker Hub，镜像地址为 **bestzwei/libretv**。
-
-每次推送到 main 分支时，自动构建流程会生成最新镜像。
-
-在本地测试，请执行以下命令：
-
 ```bash
 docker pull bestzwei/libretv:latest
 docker run -d --name libretv -p 8899:80 bestzwei/libretv:latest
@@ -110,14 +114,6 @@ services:
     restart: unless-stopped
 ```
 
-然后运行以下命令启动服务：
-
-```bash
-docker-compose up -d
-```
-
-访问 http://localhost:8899 查看站点效果。
-
 ## 🔧 自定义配置
 
 项目主要配置在`js/config.js`文件中，你可以修改以下内容：
@@ -126,46 +122,21 @@ docker-compose up -d
 - `API_SITES`: 添加或修改视频源API接口
 - `SITE_CONFIG`: 更改站点名称、描述等基本信息
 - `PLAYER_CONFIG`: 调整播放器参数，如自动播放、广告过滤等
+- `HIDE_BUILTIN_ADULT_APIS`: 用于控制是否隐藏内置的黄色采集站API，默认值为`true`。设置为`true`时，内置的某些敏感API将不会在设置面板中显示，可根据实际需要修改配置。
 
-## 🌟 项目结构
+注意：若使用docker部署，可进入容器，在`/usr/share/nginx/html/js`内修改相关配置
 
-```
-LibreTV/
-├── css/
-│   └── styles.css       // 自定义样式
-├── js/
-│   ├── app.js           // 主应用逻辑
-│   ├── api.js           // API请求处理
-│   ├── config.js        // 全局配置
-│   └── ui.js            // UI交互处理
-├── player.html          // 自定义视频播放器
-├── index.html           // 主页面
-├── robots.txt           // 搜索引擎爬虫配置
-└── sitemap.xml          // 站点地图
-```
+## Star History
 
-## 📝 使用说明
-
-1. 打开网站，在搜索框中输入想要搜索的视频名称
-2. 点击搜索按钮或按Enter键开始搜索
-3. 从搜索结果列表中选择想要观看的视频
-4. 在视频详情页中选择集数开始观看
-5. 可以通过右上角的设置按钮更换数据源或自定义API
-6. 播放过程中利用播放器自带的广告过滤功能享受无广告体验
-
-## 💡 广告过滤说明
-
-LibreTV播放器内置了智能广告过滤系统，可以识别并自动跳过视频流中的广告内容。此功能通过分析M3U8流文件中的特定标记和片段特性来实现。请注意：
-
-- 广告过滤功能对大多数常见广告格式有效，但可能无法过滤所有类型的广告
-- 过滤效果取决于视频源的编码方式和广告插入方式
-- 在`PLAYER_CONFIG`中可开启或关闭广告过滤功能
+[![Star History Chart](https://api.star-history.com/svg?repos=LibreSpark/LibreTV&type=Date)](https://www.star-history.com/#LibreSpark/LibreTV&Date)
 
 ## ⚠️ 免责声明
 
-LibreTV仅作为视频搜索工具，不存储、上传或分发任何视频内容。所有视频均来自第三方API接口提供的搜索结果。如有侵权内容，请联系相应的内容提供方。
+LibreTV 仅作为视频搜索工具，不存储、上传或分发任何视频内容。所有视频均来自第三方API接口提供的搜索结果。如有侵权内容，请联系相应的内容提供方。
 
 ## 🔄 更新日志
 
 - 1.0.0 (2025-04-06): 初始版本发布
 - 1.0.1 (2025-04-07): 添加广告过滤功能，优化播放器性能
+- 1.0.2 (2025-04-08): 分离了播放页面，优化视频源API兼容性
+- 1.0.3 (2025-04-13): 性能优化、ui优化、更新设置功能
