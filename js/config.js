@@ -1,7 +1,7 @@
 // 全局常量配置
 
-const PROXY_URL = 'https://cfkua.wokaotianshi.eu.org/';
-const HOPLAYER_URL = 'https://hoplayer.com/index.html';
+const PROXY_URL = '/proxy/';
+// const HOPLAYER_URL = 'https://hoplayer.com/index.html';
 const SEARCH_HISTORY_KEY = 'videoSearchHistory';
 const MAX_HISTORY_ITEMS = 10;
 
@@ -246,10 +246,10 @@ const SECURITY_CONFIG = {
     enableXSSProtection: true,  // 是否启用XSS保护
     sanitizeUrls: true,         // 是否清理URL
     maxQueryLength: 100,        // 最大搜索长度
-    allowedApiDomains: [        // 允许的API域名
-        'heimuer.xyz',
-        'ffzy5.tv'
-    ]
+   // allowedApiDomains: [        // 允许的API域名
+       // 'heimuer.xyz',
+       // 'ffzy5.tv'
+   // ]
 };
 
 // 添加多个自定义API源的配置
