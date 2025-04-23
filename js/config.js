@@ -21,6 +21,11 @@ const API_SITES = {
         name: '黑木耳',
         detail: 'https://heimuer.tv'
     },
+	    maotai: {
+                api: 'https://caiji.maotaizy.cc',
+                        name: '茅台资源',
+                                detail: 'https://caiji.maotaizy.cc'
+                                    },	
     ffzy: {
         api: 'http://ffzy5.tv',
         name: '非凡影视',
@@ -29,6 +34,11 @@ const API_SITES = {
     tyyszy: {
         api: 'https://tyyszy.com',
         name: '天涯资源',
+    },
+		    wwdj: {
+        api: 'https://api.wwzy.tv',
+        name: '旺旺短剧',
+        detail: 'https://api.wwzy.tv'
     },
     ckzy: {
         api: 'https://www.ckzy1.com',
@@ -146,7 +156,32 @@ const API_SITES = {
         name: '黄瓜资源',
 		adult: true,
         detail: 'https://www.avre06.com',
+    },
+    zuid: {
+        api: 'https://api.zuidapi.com',
+        name: '最大资源'
+    },
+    suoni: {
+        api: 'https://suoniapi.com',
+        name: '索尼资源'
+    },
+    yutu: {
+        api: 'https://yutuzy10.com',
+        name: '玉兔资源',
+        adult: true
+    },
+	    xingba: {
+        api: 'https://xingba111.com',
+        name: '杏吧资源',
+        adult: true
+    },
+	    soa: {
+        api: 'https://api.souavzy.vip',
+        name: '搜a资源',
+        adult: true
     }
+
+
 };
 
 // 添加聚合搜索的配置选项
