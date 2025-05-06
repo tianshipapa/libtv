@@ -16,23 +16,26 @@ const SITE_CONFIG = {
 
 // API站点配置
 const API_SITES = {
-    heimuer: {
+		    dytt: {
+        api: 'http://caiji.dyttzyapi.com',
+        name: '电影天堂',
+        detail: 'http://caiji.dyttzyapi.com',
+    },
+	    heimuer: {
         api: 'https://json.heimuer.xyz',
         name: '黑木耳',
-        detail: 'https://heimuer.tv',
-        filterAdRule: '#EXT-X-DISCONTINUITY\\n#EXTINF:\\d+\\.\\d+,\\n.*?\\n#EXT-X-DISCONTINUITY'
-    },
-    ffzy: {
-        api: 'http://ffzy5.tv',
-        name: '非凡影视',
-        detail: 'http://ffzy5.tv',
-        filterAdRule: '#EXT-X-DISCONTINUITY\\r*\\n*#EXTINF:6.666667,[\\s\\S]*?#EXT-X-DISCONTINUITY'
+        detail: 'https://heimuer.tv'
     },
 	    maotai: {
                 api: 'https://caiji.maotaizy.cc',
                         name: '茅台资源',
                                 detail: 'https://caiji.maotaizy.cc'
                                     },	
+    ffzy: {
+        api: 'http://ffzy5.tv',
+        name: '非凡影视',
+        detail: 'http://ffzy5.tv'
+    },
     tyyszy: {
         api: 'https://tyyszy.com',
         name: '天涯资源',
@@ -146,20 +149,18 @@ const API_SITES = {
         detail: 'https://shayuapi.com',
     }, 
 	
-	        dnzzy: {
-        api: 'https://apidanaizi.com',
-        name: '大柰子资源',
-		adult: true,
-        detail: 'https://apidanaizi.com',
-    },
-		
 	        nxxzy: {
         api: 'https://naixxzy.com',
         name: '奶香香资源',
 		adult: true,
         detail: 'https://naixxzy.com',
     },
-	
+		        dnzzy: {
+        api: 'https://apidanaizi.com',
+        name: '大柰子资源',
+		adult: true,
+        detail: 'https://apidanaizi.com',
+    },
 	        hgzy: {
         api: 'https://www.avre06.com',
         name: '黄瓜资源',
