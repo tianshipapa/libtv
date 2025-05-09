@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LibreTV 播放器</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://images.icon-icons.com/38/PNG/512/retrotv_5520.png">
+    <link rel="apple-touch-icon" href="https://images.icon-icons.com/38/PNG/512/retrotv_5520.png">
+    <link rel="manifest" href="manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/styles.css">
     <style>
@@ -574,12 +579,13 @@
                             
                             hls.loadSource(video.src);
                             hls.attachMedia(video);
-                             // enable airplay, from https://github.com/video-dev/hls.js/issues/5989
+                            
+                            // enable airplay, from https://github.com/video-dev/hls.js/issues/5989
                             const source = document.createElement('source');
                             source.src = videoUrl;
                             video.appendChild(source);
                             video.disableRemotePlayback = false;
-							
+                                     
                             hls.on(Hls.Events.MANIFEST_PARSED, function() {
                                 video.play().catch(e => {
                                     console.warn('自动播放被阻止:', e);
